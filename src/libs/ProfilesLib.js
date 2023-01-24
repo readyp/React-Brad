@@ -24,5 +24,6 @@ export const getProfilesByUsername = async (username) => {
         throw new Error(res.statusText);
     }
     const data = await res.json();
+    console.log(data.items)
     return data.items;
 };

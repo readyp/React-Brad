@@ -4,6 +4,12 @@ import { getProfilesByUsername } from '../libs/ProfilesLib';
 
 function SearchComponent() {
     const queryClient = useQueryClient();
+    const {refetch} = useQuery({
+        queryKey: ['profiles'],
+        queryFn: () => getProfilesByUsername(term),
+        enabled: false,
+        refetchOnWindowFocus: false
+    })
     const [term, setTerm] = useState('');
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -11,9 +17,7 @@ function SearchComponent() {
         if (!term) {
             alert('Isi something please');
         } else {
-            queryClient.setQueryData(['profiles', term], () => {
-                getProfilesByUsername(term);
-            });
+            refetch()
         }
     };
     return (
@@ -32,7 +36,9 @@ function SearchComponent() {
                     </button>
                 </div>
             </form>
-            <button className='btn w-fit'>Clear</button>
+            <button className='btn w-fit' onClick={() => {
+                queryClient.setQueryData(['profiles'], [])
+            }}>Clear</button>
         </div>
     );
 }
