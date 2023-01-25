@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 function Navbar() {
     return (
-        <nav className="navbar bg-slate-900 shadow text-white">
+        <nav className="navbar bg-slate-900 shadow text-white mb-4">
             {/* container */}
             <div className="container mx-auto px-4 flex justify-between">
                 {/* Navbrand */}
