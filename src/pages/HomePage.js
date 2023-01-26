@@ -1,7 +1,12 @@
+import ProfileItemList from "../components/ProfileItemList"
+import SearchProfile from "../components/SearchProfile"
+
 function HomePage() {
     return (
-        <div>
+        <div className="container mx-auto px-4">
             Home page
+            <SearchProfile />
+            <ProfileItemList />
         </div>
     )
 }
