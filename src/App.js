@@ -5,20 +5,23 @@ import AboutPage from './pages/AboutPage';
 import PageNotFound from './pages/PageNotFound';
 import Navbar from './layout/Navbar';
 import Footer from './layout/Footer';
+import { GithubProvider } from './context/github/GithubContext';
 
 function App() {
     return (
-        <Router>
-            <main className='flex min-h-screen flex-col justify-between'>
-                <Navbar />
-                <Routes>
-                    <Route path='/' element={<HomePage />} />
-                    <Route path='/about' element={<AboutPage />} />
-                    <Route path='*' element={<PageNotFound />} />
-                </Routes>
-                <Footer />
-            </main>
-        </Router>
+        <GithubProvider>
+            <Router>
+                <main className='flex min-h-screen flex-col justify-between'>
+                    <Navbar />
+                    <Routes>
+                        <Route path='/' element={<HomePage />} />
+                        <Route path='/about' element={<AboutPage />} />
+                        <Route path='*' element={<PageNotFound />} />
+                    </Routes>
+                    <Footer />
+                </main>
+            </Router>
+        </GithubProvider>
     );
 }
 
