@@ -9,8 +9,8 @@ function Navbar() {
                 <div className='flex flex-1 justify-between'>
                     {/* Navbran */}
                     <Link to={'/'} className='flex space-x-4 items-center'>
-                        <FaGithub className='text-2xl' />
-                        <span className='fond-bold text-2xl'>
+                        <FaGithub className='text-xl' />
+                        <span className='fond-bold text-xl uppercase'>
                             Github finder
                         </span>
                     </Link>
