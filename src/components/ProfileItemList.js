@@ -16,7 +16,10 @@ function ProfileItemList() {
         );
     }
     return (
-        <div className='grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3'>
+        <div className='grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-stretch'>
+            {users?.length === 0 && (
+                <h2 className='font-bold'>Result not found</h2>
+            )}
             {users?.map((item) => (
                 <ProfileItem key={item.id} item={item} />
             ))}

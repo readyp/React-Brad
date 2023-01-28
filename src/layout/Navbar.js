@@ -11,7 +11,7 @@ function Navbar() {
                     {/* Navbran */}
                     <Link to={'/'} className='flex space-x-4 items-center'>
                         <FaGithub className='text-2xl' />
-                        <span className='fond-bold text-2xl'>
+                        <span className='fond-bold text-2xl uppercase'>
                             Github finder
                         </span>
                     </Link>

@@ -7,7 +7,13 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
 export const GithubContext = createContext();
 export const GithubProvider = ({ children }) => {
-    const initialValue = { users: null, loading: false, error: null };
+    const initialValue = {
+        users: null,
+        loading: false,
+        error: null,
+        user: null,
+        repos: null,
+    };
     const [state, dispatch] = useReducer(githubReducer, initialValue);
 
     // set loading
@@ -51,8 +57,9 @@ export const GithubProvider = ({ children }) => {
         });
     };
 
-    // get all user hy username
+    // get all user by username
     const getUsersByUsername = async (username) => {
+        setLoading();
         const res = await fetch(`${GITHUB_URL}/search/users?q=${username}`);
         if (!res.ok) {
             setError(res.statusText);
@@ -65,15 +72,65 @@ export const GithubProvider = ({ children }) => {
         });
     };
 
+    // Get One User
+    const getOneUser = async (username) => {
+        const res = await fetch(`${GITHUB_URL}/users/${username}`, {
+            headers: {
+                Authorization: `token ${GITHUB_TOKEN}`,
+            },
+        });
+        if (res.status === 404) {
+            window.location = '/pagenotfound';
+        } else {
+            const data = await res.json();
+            console.log('[GithubContext] getOneUser:');
+            console.log(data);
+            dispatch({
+                type: 'GET_ONE_USER',
+                payload: data,
+            });
+        }
+    };
+
+    // Get user repos
+    const getUserRepos = async (username) => {
+        const queries = new URLSearchParams({
+            sort: 'created',
+            per_page: 10,
+        });
+        console.log(queries);
+        const res = await fetch(
+            `${GITHUB_URL}/users/${username}/repos?${queries}`,
+            {
+                headers: {
+                    Authorization: `token ${GITHUB_TOKEN}`,
+                },
+            }
+        );
+        if (!res.ok) {
+            setError(res.statusText);
+            throw new Error(res.statusText);
+        }
+        const data = await res.json();
+        dispatch({
+            type: 'GET_USER_REPOS',
+            payload: data,
+        });
+    };
+
     return (
         <GithubContext.Provider
             value={{
                 users: state.users,
+                user: state.user,
                 loading: state.loading,
                 error: state.error,
+                repos: state.repos,
                 getAllUsers,
                 getUsersByUsername,
+                getOneUser,
                 clearResult,
+                getUserRepos,
             }}
         >
             {children}
