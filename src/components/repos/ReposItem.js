@@ -2,7 +2,7 @@ import { FaEye, FaStar, FaInfo, FaUtensils } from "react-icons/fa";
 
 function ReposItem({ item }) {
   return (
-    <div className="bg-base-300 rounded p-4 my-4 space-y-2">
+    <div className="bg-base-200 rounded p-4 my-4 space-y-2">
       <h2>{item.name}</h2>
       <p className="text-sm italic">{item.description}</p>
       <div className="space-y-2 space-x-2">
